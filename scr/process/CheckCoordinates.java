@@ -1,5 +1,9 @@
 package scr.process;
 
+import java.util.Objects;
+
+import static java.lang.Integer.parseInt;
+
 public class CheckCoordinates {
     public String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -12,6 +16,7 @@ public class CheckCoordinates {
     int horOrVert; // 0 = horizontal, 1 = Vertical, 2 = Error
 
     int horizontalOrVertical(String[] arrayCoordinate) {
+        System.out.println(arrayCoordinate[0] + " " + arrayCoordinate[2] + " " + (Objects.equals(arrayCoordinate[0], arrayCoordinate[2])));
         if (arrayCoordinate[0].equals(arrayCoordinate[2])) {
             this.horOrVert = 0;
         } else if (arrayCoordinate[1].equals(arrayCoordinate[3])) {
@@ -26,76 +31,44 @@ public class CheckCoordinates {
 
     boolean overlay(int one, int two, String posY) {  //horiz
         boolean flag = false;
+        int startY, endY;
+        int startX, endX;
         if (posY.equals("A")) {
-            if (one == 1) {
-                for (int y = 0; y < 2; y++) {
-                    for (int x = one; x < two + 2; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            } else if (two == 10) {
-                for (int y = 0; y < 2; y++) {
-                    for (int x = one - 1; x < two + 1; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            } else { // vse sluchai
-                for (int y = 0; y < 2; y++) {
-                    for (int x = one - 1; x < two + 2; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            startY = 0;
+            endY = 2;
         } else if (posY.equals("J")) {
-            if (one == 1) {
-                for (int y = 9; y > 7; y--) {
-                    for (int x = one; x < two + 2; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            } else if (two == 10) {
-                for (int y = 9; y > 7; y--) {
-                    for (int x = one - 1; x < two + 1; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                for (int y = 9; y > 7; y--) {
-                    for (int x = one - 1; x < two + 2; x++) {
-                        if (field[y][x].equals("O")) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            startY = 9;
+            endY = 7;
         } else {
-            for (int y = alphabet.indexOf(posY) - 1; y < alphabet.indexOf(posY) + 2; y++) {
-                for (int x = one - 1; x < two + 2; x++) {
-                    if (field[y][x].equals("O")) {
-                        flag = true;
-                        break;
-                    }
+            startY = alphabet.indexOf(posY) - 1;
+            endY = alphabet.indexOf(posY) + 2;
+        }
+        if (one == 1) {
+            startX = 0;
+            endX = 2;
+        } else if (one == 10) {
+            startX = 7;
+            endX = 9;
+        } else {
+            startX = one - 1;
+            endX = two + 2;
+        }
+
+        for (int y = startY; y < endY; y++) {
+            for (int x = startX; x < endX; x++) {
+                if (field[y][x].equals("O")) {
+                    flag = true;
+                    break;
                 }
             }
         }
         return flag;
-    }
+    } // CHECK OVERLAY FOR HORIZONTAL POSITION
+
+//    boolean overlay(String one, String two, int posY) {
+//        boolean flag = false;
+//        return flag;
+//    }
 
     boolean check(String coordinate, int lenShip) {
         String[] arrayCoordinate = coordinate.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
@@ -111,19 +84,18 @@ public class CheckCoordinates {
                 if (coordinateTwo - coordinateOne == lenShip) {
                     if (overlay(coordinateOne, coordinateTwo, arrayCoordinate[0])) {
                         System.out.println("Error! You placed it too close to another one. Try again:");
-                    }
-
+                        return true;
+                    } else return false;
                 } else {
                     System.out.println("Error! Wrong length of the Submarine! Try again:");
-                    return false;
+                    return true;
                 }
-                return false;
             }
             case 1 -> {//if vertical
                 return false;
             }
             case 2 -> {//if error !!!DON'T TOUCH BELOW!!!
-                return false;
+                return true;
             }
         }
 

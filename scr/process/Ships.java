@@ -18,6 +18,8 @@ public class Ships {
         System.out.println("Enter the coordinates of the Aircraft Carrier (5 cells):");
         String coordinate = scanner.nextLine();
         CheckCoordinates checkCoordinates = new CheckCoordinates(field);
-        checkCoordinates.check(coordinate, lenShip);
+        while (checkCoordinates.check(coordinate, lenShip)) {
+            coordinate = scanner.nextLine();
+        }
     }
 }
