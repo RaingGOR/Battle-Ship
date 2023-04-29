@@ -71,7 +71,7 @@ public class CheckCoordinates {
 //    }
 
     boolean check(String coordinate, int lenShip) {
-        String[] arrayCoordinate = coordinate.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+        String[] arrayCoordinate = coordinate.replaceAll(" ", "").split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
         switch (horizontalOrVertical(arrayCoordinate)) {
             case 0 -> {//if horizontal
                 int coordinateOne = Integer.parseInt(arrayCoordinate[1]),
