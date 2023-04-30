@@ -63,6 +63,7 @@ public class CheckCoordinates {
     } // CHECK OVERLAY FOR HORIZONTAL POSITION
 
     boolean overlay(String one, String two, int posX) {
+        boolean flag = false;
         int startY, endY;
         int startX, endX;
         if (one.equals("A")) {
@@ -89,11 +90,12 @@ public class CheckCoordinates {
         for (int y = startY; y < endY; y++) {
             for (int x = startX; x < endX; x++) {
                 if (field[y][x].equals("O")) {
-                    return true;
-                }
+                    flag = true;
+                    break;
+                } else flag = false;
             }
         }
-        return false;
+        return flag;
     }// CHECK OVERLAY FOR vertical POSITION
 
     boolean check(String coordinate, int lenShip, String nameShip) {
@@ -135,7 +137,7 @@ public class CheckCoordinates {
                         System.out.println("Error! You placed it too close to another one. Try again:");
                         return true;
                     } else {
-                        fieldClass.changesToField(coord1, coord2, parseInt(arrayCoordinate[1]),field);
+                        fieldClass.changesToField(coord1, coord2, parseInt(arrayCoordinate[1]), field);
                         return false;
                     }
                 } else {
