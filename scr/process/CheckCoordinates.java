@@ -63,7 +63,6 @@ public class CheckCoordinates {
     } // CHECK OVERLAY FOR HORIZONTAL POSITION
 
     boolean overlay(String one, String two, int posX) {
-        boolean flag = false;
         int startY, endY;
         int startX, endX;
         if (one.equals("A")) {
@@ -90,12 +89,11 @@ public class CheckCoordinates {
         for (int y = startY; y < endY; y++) {
             for (int x = startX; x < endX; x++) {
                 if (field[y][x].equals("O")) {
-                    flag = true;
-                    break;
+                    return true;
                 }
             }
         }
-        return flag;
+        return false;
     }// CHECK OVERLAY FOR vertical POSITION
 
     boolean check(String coordinate, int lenShip, String nameShip) {
