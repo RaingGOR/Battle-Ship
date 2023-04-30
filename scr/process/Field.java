@@ -24,18 +24,18 @@ public class Field {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
-    void changesToField(int one, int two, int y) {
-        for (int x = one - 1; x < two - 1; x++) {
-            field[y][x] = "O";
+    void changesToField(int one, int two, int y, String[][] fieldz) {
+        for (int x = one - 1; x < two; x++) {
+            fieldz[y][x] = "O";
         }
     }
 
-    void changesToField(String one, String two, int x) {
-        for (int y = alphabet.indexOf(one); y < alphabet.indexOf(two); y++) {
-            field[y][x - 1] = "O";
-
+    void changesToField(String one, String two, int x, String[][] fieldz) {
+        for (int y = alphabet.indexOf(one); y < alphabet.indexOf(two) + 1; y++) {
+            fieldz[y][x - 1] = "O";
         }
     }
 }
