@@ -84,7 +84,7 @@ public class CheckCoordinates {
             endX = 9;
         } else {
             startX = posX - 1;
-            endX = posX + 2;
+            endX = posX + 1;
         }
 
         for (int y = startY; y < endY; y++) {

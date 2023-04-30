@@ -51,7 +51,7 @@ public class Ships {
         }
     }
     void Destroyer(){
-        int lenShip = 3;
+        int lenShip = 2;
         System.out.println("Enter the coordinates of the Destroyer (2 cells):");
         String coordinate = scanner.nextLine();
         CheckCoordinates checkCoordinates = new CheckCoordinates(field);
